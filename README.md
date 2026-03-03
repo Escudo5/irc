@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by omuno.*
+*This project has been created as part of the 42 curriculum by osmunoz-, smarquez and nmagro-r.*
 
 # ft_irc: A fully compliant IRC server in C++98
 

@@ -40,11 +40,11 @@ void Server::setupServerSocket() {
         throw SocketException();
     }
 
-    struct sockaddr_in address;
+    struct sockaddr_in address; //describe una direccion de red ipv4
     std::memset(&address, 0, sizeof(address));
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(_port);
+    address.sin_port = htons(_port); //convertir a big-endian para q entienda la red
 
     if (bind(_serverSocket, (struct sockaddr *)&address, sizeof(address)) < 0) {
         close(_serverSocket);
@@ -52,14 +52,14 @@ void Server::setupServerSocket() {
     }
 
     if (listen(_serverSocket, SOMAXCONN) < 0) {
-        close(_serverSocket);
+        close(_serverSocket); // lo cerramos porq no se usa para env o rec, solamente escucha.
         throw ListenException();
     }
 
     struct pollfd srvPollFd;
     srvPollFd.fd = _serverSocket;
-    srvPollFd.events = POLLIN;
-    srvPollFd.revents = 0;
+    srvPollFd.events = POLLIN; //eventos q nos interesan
+    srvPollFd.revents = 0; //eventos que ya han pasado
     _pollFds.push_back(srvPollFd);
 }
 
